@@ -3,10 +3,12 @@
 [![cointracking-imports Build Status](https://github.com/prikhi/cointracking-imports/actions/workflows/main.yml/badge.svg)](https://github.com/prikhi/cointracking-imports/actions/workflows/main.yml)
 
 
-Describe your project here.
+A Haskell library for generating CSV & XLSX files for importing into
+[CoinTracking][cointracking].
 
 Requires [`stack`][get-stack]:
 
+[cointracking]: https://cointracking.info/
 [get-stack]: https://docs.haskellstack.org/en/stable/README/
 
 

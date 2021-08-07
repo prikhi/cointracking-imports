@@ -6,11 +6,11 @@ cabal-version: 1.12
 
 name:           cointracking-imports
 version:        0.1.0.0
-synopsis:       Short, one-line summary of project here.
+synopsis:       Generate CSV & XLSX files for importing into CoinTracking.
 description:    Longer description of package here.
                 .
                 Maybe include a simple usage example.
-category:       Web
+category:       Web, Finance
 homepage:       https://github.com/prikhi/cointracking-imports#readme
 bug-reports:    https://github.com/prikhi/cointracking-imports/issues
 author:         Pavan Rikhi

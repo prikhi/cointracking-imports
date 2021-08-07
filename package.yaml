@@ -19,14 +19,14 @@ maintainer:
 copyright:
     2021 Pavan Rikhi
 category:
-    Web
+    Web, Finance
 extra-source-files:
     - README.md
     - CHANGELOG.md
 
 
 synopsis:
-    Short, one-line summary of project here.
+    Generate CSV & XLSX files for importing into CoinTracking.
 
 description: |
     Longer description of package here.
