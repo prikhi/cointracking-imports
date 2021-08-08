@@ -6,6 +6,7 @@ imports.
 module Web.CoinTracking.Imports.Types
     ( CTImportData(..)
     , CTTransactionType(..)
+    , renderTransactionType
     , Amount(..)
     , Currency(..)
     ) where
@@ -19,6 +20,7 @@ import           Data.Scientific                ( FPFormat(Fixed)
                                                 , Scientific
                                                 , formatScientific
                                                 )
+import           Data.String                    ( IsString )
 import           Data.Time                      ( ZonedTime
                                                 , defaultTimeLocale
                                                 , formatTime
@@ -129,39 +131,42 @@ data CTTransactionType
     deriving (Show, Read, Eq, Ord, Bounded, Enum, Generic)
 
 instance ToField CTTransactionType where
-    toField = \case
-        Trade                    -> "Trade"
-        Deposit                  -> "Deposit"
-        Withdrawal               -> "Withdrawal"
-        Income                   -> "Income"
-        Mining                   -> "Mining"
-        GiftTipIn                -> "Gift/Tip(In)"
-        Spend                    -> "Spend"
-        Donation                 -> "Donation"
-        GiftOut                  -> "Gift(Out)"
-        Stolen                   -> "Stolen"
-        Lost                     -> "Lost"
-        Airdrop                  -> "Airdrop"
-        Staking                  -> "Staking"
-        Masternode               -> "Masternode"
-        Minting                  -> "Minting"
-        DividendsIncome          -> "Dividends Income"
-        LendingIncome            -> "Lending Income"
-        InterestIncome           -> "Interest Income"
-        RewardBonus              -> "Reward / Bonus"
-        MiningCommercial         -> "Mining (commercial)"
-        MarginProfit             -> "Margin Profit"
-        DerivativesFuturesProfit -> "Derivatives / Futures Profit"
-        OtherIncome              -> "Other Income"
-        IncomeNonTaxable         -> "Income (non taxable)"
-        OtherIncomeNonTaxable    -> "Other Income (non taxable)"
-        MarginLoss               -> "Margin Loss"
-        MarginFee                -> "Margin Fee"
-        BorrowingFee             -> "Borrowing Fee"
-        SettlementFee            -> "Settlement Fee"
-        DerivativesFuturesLoss   -> "Derivatives / Futures Loss"
-        OtherFee                 -> "Other Fee"
-        OtherExpense             -> "Other Expense"
-        ExpenseNonTaxable        -> "Expense (non taxable)"
-        MarginTrade              -> "Margin Trade"
-        DerivativesFuturesTrade  -> "Derivatives / Futures Trade"
+    toField = renderTransactionType
+
+renderTransactionType :: (IsString a) => CTTransactionType -> a
+renderTransactionType = \case
+    Trade                    -> "Trade"
+    Deposit                  -> "Deposit"
+    Withdrawal               -> "Withdrawal"
+    Income                   -> "Income"
+    Mining                   -> "Mining"
+    GiftTipIn                -> "Gift/Tip(In)"
+    Spend                    -> "Spend"
+    Donation                 -> "Donation"
+    GiftOut                  -> "Gift(Out)"
+    Stolen                   -> "Stolen"
+    Lost                     -> "Lost"
+    Airdrop                  -> "Airdrop"
+    Staking                  -> "Staking"
+    Masternode               -> "Masternode"
+    Minting                  -> "Minting"
+    DividendsIncome          -> "Dividends Income"
+    LendingIncome            -> "Lending Income"
+    InterestIncome           -> "Interest Income"
+    RewardBonus              -> "Reward / Bonus"
+    MiningCommercial         -> "Mining (commercial)"
+    MarginProfit             -> "Margin Profit"
+    DerivativesFuturesProfit -> "Derivatives / Futures Profit"
+    OtherIncome              -> "Other Income"
+    IncomeNonTaxable         -> "Income (non taxable)"
+    OtherIncomeNonTaxable    -> "Other Income (non taxable)"
+    MarginLoss               -> "Margin Loss"
+    MarginFee                -> "Margin Fee"
+    BorrowingFee             -> "Borrowing Fee"
+    SettlementFee            -> "Settlement Fee"
+    DerivativesFuturesLoss   -> "Derivatives / Futures Loss"
+    OtherFee                 -> "Other Fee"
+    OtherExpense             -> "Other Expense"
+    ExpenseNonTaxable        -> "Expense (non taxable)"
+    MarginTrade              -> "Margin Trade"
+    DerivativesFuturesTrade  -> "Derivatives / Futures Trade"
