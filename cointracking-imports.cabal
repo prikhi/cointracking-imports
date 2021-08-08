@@ -29,7 +29,8 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Web.CoinTracking.Imports
+      Web.CoinTracking.Imports.Types
   other-modules:
       Paths_cointracking_imports
   hs-source-dirs:
@@ -47,6 +48,11 @@ library
   build-depends:
       base >=4.3 && <5
     , base-compat-batteries
+    , bytestring <1
+    , cassava <1
+    , scientific <1
+    , text <2
+    , time <2
   if impl(ghc >= 8.0)
     ghc-options: -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
   else
@@ -73,11 +79,16 @@ test-suite cointracking-imports-test
   build-depends:
       base >=4.3 && <5
     , base-compat-batteries
+    , bytestring <1
+    , cassava <1
     , cointracking-imports
     , hedgehog
+    , scientific <1
     , tasty
     , tasty-hedgehog
     , tasty-hunit
+    , text <2
+    , time <2
   if impl(ghc >= 8.0)
     ghc-options: -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
   else

@@ -64,6 +64,11 @@ default-extensions:
 dependencies:
     - base >= 4.3 && < 5
     - base-compat-batteries
+    - bytestring < 1
+    - cassava < 1
+    - scientific < 1
+    - text < 2
+    - time < 2
 
 
 library:
