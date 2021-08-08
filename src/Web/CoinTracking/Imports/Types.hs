@@ -19,7 +19,7 @@ import           Data.Scientific                ( FPFormat(Fixed)
                                                 , Scientific
                                                 , formatScientific
                                                 )
-import           Data.Time                      ( LocalTime
+import           Data.Time                      ( ZonedTime
                                                 , defaultTimeLocale
                                                 , formatTime
                                                 )
@@ -36,12 +36,12 @@ data CTExportData = CTExportData
     , ctedExchange  :: T.Text
     , ctedGroup     :: T.Text
     , ctedComment   :: T.Text
-    , ctedDate      :: LocalTime
+    , ctedDate      :: ZonedTime
     , ctedTradeId   :: T.Text
     , ctedBuyValue  :: Maybe Amount
     , ctedSellValue :: Maybe Amount
     }
-    deriving (Show, Read, Eq, Generic)
+    deriving (Show, Read, Generic)
 
 instance ToRecord CTExportData where
     toRecord CTExportData {..} = record
