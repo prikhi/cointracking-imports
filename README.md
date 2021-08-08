@@ -4,9 +4,10 @@
 
 
 A Haskell library for generating CSV & XLSX files for importing into
-[CoinTracking][cointracking].
+[CoinTracking][cointracking]. Build a `[CTImportData]` & write to a file with
+`writeImportDataToFile`.
 
-Requires [`stack`][get-stack]:
+Requires [`stack`][get-stack].
 
 [cointracking]: https://cointracking.info/
 [get-stack]: https://docs.haskellstack.org/en/stable/README/

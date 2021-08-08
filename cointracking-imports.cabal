@@ -7,9 +7,13 @@ cabal-version: 1.12
 name:           cointracking-imports
 version:        0.1.0.0
 synopsis:       Generate CSV & XLSX files for importing into CoinTracking.
-description:    Longer description of package here.
+description:    @cointracking-imports@ is a library for generating CSV & XLSX files to use
+                with <https://cointracking.info CoinTracking>'s Import feature. You
+                construct a list of @CTImportData@, then feed those to our CSV/XLSX
+                generating functions.
                 .
-                Maybe include a simple usage example.
+                E.g., if you generate a list of your BNB staking rewards, you can use this
+                library build a CSV file to import those rewards into CoinTracking.
 category:       Web, Finance
 homepage:       https://github.com/prikhi/cointracking-imports#readme
 bug-reports:    https://github.com/prikhi/cointracking-imports/issues
