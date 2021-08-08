@@ -25,7 +25,7 @@ import qualified Data.Text                     as T
 
 -- | Generate the CoinTracking CSV Import for the data, prepended by
 -- a header row.
-coinTrackingCsvImport :: [CTExportData] -> LBS.ByteString
+coinTrackingCsvImport :: [CTImportData] -> LBS.ByteString
 coinTrackingCsvImport = (headerRow <>) . encodeWith csvEncodingOptions
 
 -- | The CSV header row to prepend to the generated output.

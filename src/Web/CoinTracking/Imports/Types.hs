@@ -4,7 +4,7 @@ imports.
 -}
 {-# LANGUAGE RecordWildCards #-}
 module Web.CoinTracking.Imports.Types
-    ( CTExportData(..)
+    ( CTImportData(..)
     , CTTransactionType(..)
     , Amount(..)
     , Currency(..)
@@ -28,37 +28,37 @@ import           GHC.Generics                   ( Generic )
 import qualified Data.Text                     as T
 
 -- | Represents a single row in an export.
-data CTExportData = CTExportData
-    { ctedType      :: CTTransactionType
-    , ctedBuy       :: Maybe Amount
-    , ctedSell      :: Maybe Amount
-    , ctedFee       :: Maybe Amount
-    , ctedExchange  :: T.Text
-    , ctedGroup     :: T.Text
-    , ctedComment   :: T.Text
-    , ctedDate      :: ZonedTime
-    , ctedTradeId   :: T.Text
-    , ctedBuyValue  :: Maybe Amount
-    , ctedSellValue :: Maybe Amount
+data CTImportData = CTImportData
+    { ctidType      :: CTTransactionType
+    , ctidBuy       :: Maybe Amount
+    , ctidSell      :: Maybe Amount
+    , ctidFee       :: Maybe Amount
+    , ctidExchange  :: T.Text
+    , ctidGroup     :: T.Text
+    , ctidComment   :: T.Text
+    , ctidDate      :: ZonedTime
+    , ctidTradeId   :: T.Text
+    , ctidBuyValue  :: Maybe Amount
+    , ctidSellValue :: Maybe Amount
     }
     deriving (Show, Read, Generic)
 
-instance ToRecord CTExportData where
-    toRecord CTExportData {..} = record
-        [ toField ctedType
-        , orBlank renderAmount   ctedBuy
-        , orBlank renderCurrency ctedBuy
-        , orBlank renderAmount   ctedSell
-        , orBlank renderCurrency ctedSell
-        , orBlank renderAmount   ctedFee
-        , orBlank renderCurrency ctedFee
-        , toField ctedExchange
-        , toField ctedGroup
-        , toField ctedComment
-        , toField $ formatTime defaultTimeLocale "%F %T" ctedDate
-        , toField ctedTradeId
-        , orBlank renderAmount ctedBuyValue
-        , orBlank renderAmount ctedSellValue
+instance ToRecord CTImportData where
+    toRecord CTImportData {..} = record
+        [ toField ctidType
+        , orBlank renderAmount   ctidBuy
+        , orBlank renderCurrency ctidBuy
+        , orBlank renderAmount   ctidSell
+        , orBlank renderCurrency ctidSell
+        , orBlank renderAmount   ctidFee
+        , orBlank renderCurrency ctidFee
+        , toField ctidExchange
+        , toField ctidGroup
+        , toField ctidComment
+        , toField $ formatTime defaultTimeLocale "%F %T" ctidDate
+        , toField ctidTradeId
+        , orBlank renderAmount ctidBuyValue
+        , orBlank renderAmount ctidSellValue
         ]
       where
         orBlank :: (a -> Field) -> Maybe a -> Field
