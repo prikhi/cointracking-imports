@@ -50,9 +50,12 @@ library
     , base-compat-batteries
     , bytestring <1
     , cassava <1
+    , filepath ==1.*
+    , lens >=3.0.4 && <6
     , scientific <1
     , text <2
     , time <2
+    , xlsx <1
   if impl(ghc >= 8.0)
     ghc-options: -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
   else
@@ -82,13 +85,16 @@ test-suite cointracking-imports-test
     , bytestring <1
     , cassava <1
     , cointracking-imports
+    , filepath ==1.*
     , hedgehog
+    , lens >=3.0.4 && <6
     , scientific <1
     , tasty
     , tasty-hedgehog
     , tasty-hunit
     , text <2
     , time <2
+    , xlsx <1
   if impl(ghc >= 8.0)
     ghc-options: -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
   else

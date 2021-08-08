@@ -66,9 +66,12 @@ dependencies:
     - base-compat-batteries
     - bytestring < 1
     - cassava < 1
+    - filepath >= 1 && < 2
+    - lens >= 3.0.4 && < 6
     - scientific < 1
     - text < 2
     - time < 2
+    - xlsx < 1
 
 
 library:

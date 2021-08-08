@@ -133,6 +133,7 @@ data CTTransactionType
 instance ToField CTTransactionType where
     toField = renderTransactionType
 
+-- | Render the 'CTTransactionType' as CoinTracking displays/expects it.
 renderTransactionType :: (IsString a) => CTTransactionType -> a
 renderTransactionType = \case
     Trade                    -> "Trade"
