@@ -5,7 +5,7 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           cointracking-imports
-version:        0.1.0.0
+version:        0.1.0.1
 synopsis:       Generate CSV & XLSX files for importing into CoinTracking.
 description:    @cointracking-imports@ is a library for generating CSV & XLSX files to use
                 with <https://cointracking.info CoinTracking>'s Import feature. You
