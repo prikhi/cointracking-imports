@@ -65,8 +65,13 @@ writeImportDataToFile file xs = do
 
 -- | Generate the CoinTracking CSV Import for the data, prepended by
 -- a header row.
+--
+-- Note: the resulting 'LBS.ByteString' has it's final newline removed, as
+-- CoinTracking's Import creates a double entry with newlines at the end of
+-- an import file.
 coinTrackingCsvImport :: [CTImportData] -> LBS.ByteString
-coinTrackingCsvImport = (headerRow <>) . encodeWith csvEncodingOptions
+coinTrackingCsvImport =
+    (headerRow <>) . LBC.init . encodeWith csvEncodingOptions
 
 -- | The CSV header row to prepend to the generated output.
 headerRow :: LBS.ByteString
