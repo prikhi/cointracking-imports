@@ -2,6 +2,8 @@
 
 ## master
 
+* Bump dependency versions.
+
 
 ## v0.1.0.1
 

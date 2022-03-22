@@ -57,9 +57,9 @@ library
     , filepath ==1.*
     , lens >=3.0.4 && <6
     , scientific <1
-    , text <2
+    , text <3
     , time <2
-    , xlsx <1
+    , xlsx <2
   if impl(ghc >= 8.0)
     ghc-options: -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
   else
@@ -96,9 +96,9 @@ test-suite cointracking-imports-test
     , tasty
     , tasty-hedgehog
     , tasty-hunit
-    , text <2
+    , text <3
     , time <2
-    , xlsx <1
+    , xlsx <2
   if impl(ghc >= 8.0)
     ghc-options: -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
   else

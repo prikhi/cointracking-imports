@@ -73,9 +73,9 @@ dependencies:
     - filepath >= 1 && < 2
     - lens >= 3.0.4 && < 6
     - scientific < 1
-    - text < 2
+    - text < 3
     - time < 2
-    - xlsx < 1
+    - xlsx < 2
 
 
 library:
