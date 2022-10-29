@@ -117,7 +117,7 @@ coinTrackingXlsxImport createdTime rows =
     in  fromXlsx createdTime book
   where
     -- | Indexed fold from the left.
-    ixFoldl :: (b -> Int -> a -> b) -> b -> [a] -> b
+    ixFoldl :: (b -> RowIndex -> a -> b) -> b -> [a] -> b
     ixFoldl f initial =
         fst . foldl' (\(b, i) a -> (f b i a, i + 1)) (initial, 0)
 
@@ -141,12 +141,12 @@ writeXlsxHeader sheet =
         &  writeColumn 10 "Comment"
         &  writeColumn 11 "Date"
   where
-    writeColumn :: Int -> T.Text -> Worksheet -> Worksheet
+    writeColumn :: ColumnIndex -> T.Text -> Worksheet -> Worksheet
     writeColumn c t s = s & cellValueAt (2, c) ?~ CellText t
 
 
 -- | Write a 'CTImportData' to the given row(1-indexed) of the worksheet.
-writeXlsxRow :: Worksheet -> Int -> CTImportData -> Worksheet
+writeXlsxRow :: Worksheet -> RowIndex -> CTImportData -> Worksheet
 writeXlsxRow sheet row CTImportData {..} =
     sheet
         & (cellValueAt (row, 1) ?~ CellText (renderTransactionType ctidType))

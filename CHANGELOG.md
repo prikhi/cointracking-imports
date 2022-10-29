@@ -2,6 +2,7 @@
 
 ## master
 
+* Support breaking changes in `xlsx-1.1.0`.
 * Bump dependency versions.
 
 

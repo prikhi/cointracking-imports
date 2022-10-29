@@ -2,6 +2,7 @@
 imports.
 
 -}
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE RecordWildCards #-}
 module Web.CoinTracking.Imports.Types
     ( CTImportData(..)
@@ -9,8 +10,15 @@ module Web.CoinTracking.Imports.Types
     , renderTransactionType
     , Amount(..)
     , Currency(..)
+    , RowIndex
+    , ColumnIndex
     ) where
 
+#if MIN_VERSION_xlsx(1, 1, 0)
+import           Codec.Xlsx                     ( ColumnIndex
+                                                , RowIndex
+                                                )
+#endif
 import           Data.Csv                       ( Field
                                                 , ToField(..)
                                                 , ToRecord(..)
@@ -28,6 +36,13 @@ import           Data.Time                      ( ZonedTime
 import           GHC.Generics                   ( Generic )
 
 import qualified Data.Text                     as T
+
+
+#if MIN_VERSION_xlsx(1, 1, 0)
+#else
+type RowIndex = Int
+type ColumnIndex = Int
+#endif
 
 -- | Represents a single row in an export.
 data CTImportData = CTImportData
