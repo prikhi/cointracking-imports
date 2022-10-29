@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        resolver: ['lts-17', 'lts-18']
+        resolver: ['lts-18', 'lts-19']
     steps:
       - uses: actions/checkout@v2
       - name: Cache Stack Artifacts
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ghc: ['8.4', '8.6', '8.8', '8.10', '9.0']
+        ghc: ['8.8', '8.10', '9.0', '9.2', '9.4']
     steps:
       - uses: actions/checkout@v2
       - name: Cache Cabal Artifacts
