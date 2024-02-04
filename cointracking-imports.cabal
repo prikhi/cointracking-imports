@@ -41,6 +41,7 @@ library
       src
   default-extensions:
       DeriveGeneric
+      ImportQualifiedPost
       LambdaCase
       NamedFieldPuns
       OverloadedStrings
@@ -75,6 +76,7 @@ test-suite cointracking-imports-test
       tests
   default-extensions:
       DeriveGeneric
+      ImportQualifiedPost
       LambdaCase
       NamedFieldPuns
       OverloadedStrings

@@ -1,41 +1,45 @@
-{-| Type definitions, instances, & utility functions for CoinTracking
-imports.
-
--}
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE RecordWildCards #-}
+
+{- | Type definitions, instances, & utility functions for CoinTracking
+imports.
+-}
 module Web.CoinTracking.Imports.Types
-    ( CTImportData(..)
-    , CTTransactionType(..)
+    ( CTImportData (..)
+    , CTTransactionType (..)
     , renderTransactionType
-    , Amount(..)
-    , Currency(..)
+    , Amount (..)
+    , Currency (..)
     , RowIndex
     , ColumnIndex
     ) where
+
 
 #if MIN_VERSION_xlsx(1, 1, 0)
 import           Codec.Xlsx                     ( ColumnIndex
                                                 , RowIndex
                                                 )
 #endif
-import           Data.Csv                       ( Field
-                                                , ToField(..)
-                                                , ToRecord(..)
-                                                , record
-                                                )
-import           Data.Scientific                ( FPFormat(Fixed)
-                                                , Scientific
-                                                , formatScientific
-                                                )
-import           Data.String                    ( IsString )
-import           Data.Time                      ( ZonedTime
-                                                , defaultTimeLocale
-                                                , formatTime
-                                                )
-import           GHC.Generics                   ( Generic )
+import Data.Csv
+    ( Field
+    , ToField (..)
+    , ToRecord (..)
+    , record
+    )
+import Data.Scientific
+    ( FPFormat (Fixed)
+    , Scientific
+    , formatScientific
+    )
+import Data.String (IsString)
+import Data.Time
+    ( ZonedTime
+    , defaultTimeLocale
+    , formatTime
+    )
+import GHC.Generics (Generic)
 
-import qualified Data.Text                     as T
+import Data.Text qualified as T
 
 
 #if MIN_VERSION_xlsx(1, 1, 0)
@@ -44,44 +48,47 @@ type RowIndex = Int
 type ColumnIndex = Int
 #endif
 
+
 -- | Represents a single row in an export.
 data CTImportData = CTImportData
-    { ctidType      :: CTTransactionType
-    , ctidBuy       :: Maybe Amount
-    , ctidSell      :: Maybe Amount
-    , ctidFee       :: Maybe Amount
-    , ctidExchange  :: T.Text
-    , ctidGroup     :: T.Text
-    , ctidComment   :: T.Text
-    , ctidDate      :: ZonedTime
-    , ctidTradeId   :: T.Text
-    , ctidBuyValue  :: Maybe Amount
+    { ctidType :: CTTransactionType
+    , ctidBuy :: Maybe Amount
+    , ctidSell :: Maybe Amount
+    , ctidFee :: Maybe Amount
+    , ctidExchange :: T.Text
+    , ctidGroup :: T.Text
+    , ctidComment :: T.Text
+    , ctidDate :: ZonedTime
+    , ctidTradeId :: T.Text
+    , ctidBuyValue :: Maybe Amount
     , ctidSellValue :: Maybe Amount
     }
     deriving (Show, Read, Generic)
 
+
 instance ToRecord CTImportData where
-    toRecord CTImportData {..} = record
-        [ toField ctidType
-        , orBlank renderAmount   ctidBuy
-        , orBlank renderCurrency ctidBuy
-        , orBlank renderAmount   ctidSell
-        , orBlank renderCurrency ctidSell
-        , orBlank renderAmount   ctidFee
-        , orBlank renderCurrency ctidFee
-        , toField ctidExchange
-        , toField ctidGroup
-        , toField ctidComment
-        , toField $ formatTime defaultTimeLocale "%F %T" ctidDate
-        , toField ctidTradeId
-        , orBlank renderAmount ctidBuyValue
-        , orBlank renderAmount ctidSellValue
-        ]
+    toRecord CTImportData {..} =
+        record
+            [ toField ctidType
+            , orBlank renderAmount ctidBuy
+            , orBlank renderCurrency ctidBuy
+            , orBlank renderAmount ctidSell
+            , orBlank renderCurrency ctidSell
+            , orBlank renderAmount ctidFee
+            , orBlank renderCurrency ctidFee
+            , toField ctidExchange
+            , toField ctidGroup
+            , toField ctidComment
+            , toField $ formatTime defaultTimeLocale "%F %T" ctidDate
+            , toField ctidTradeId
+            , orBlank renderAmount ctidBuyValue
+            , orBlank renderAmount ctidSellValue
+            ]
       where
         orBlank :: (a -> Field) -> Maybe a -> Field
         orBlank = maybe ""
         renderAmount :: Amount -> Field
-        renderAmount Amount { aCurrency = Currency {..}, ..} =
+        renderAmount Amount {aCurrency = Currency {..}, ..} =
             toField $ formatScientific Fixed (Just cPrecision) aAmount
         renderCurrency :: Amount -> Field
         renderCurrency = toField . cTicker . aCurrency
@@ -89,18 +96,19 @@ instance ToRecord CTImportData where
 
 -- | An amount & currency specification.
 data Amount = Amount
-    { aAmount   :: Scientific
+    { aAmount :: Scientific
     -- ^ The total amount.
     , aCurrency :: Currency
     -- ^ The currency symbol & decimal-precision.
     }
     deriving (Show, Read, Eq)
 
+
 -- | A pair containing a currency symbol & an amount.
 data Currency = Currency
     { cPrecision :: Int
     -- ^ The number of decimals places of precision.
-    , cTicker    :: T.Text
+    , cTicker :: T.Text
     -- ^ The ticker symbol
     }
     deriving (Show, Read, Eq, Generic)
@@ -145,44 +153,46 @@ data CTTransactionType
     | DerivativesFuturesTrade
     deriving (Show, Read, Eq, Ord, Bounded, Enum, Generic)
 
+
 instance ToField CTTransactionType where
     toField = renderTransactionType
+
 
 -- | Render the 'CTTransactionType' as CoinTracking displays/expects it.
 renderTransactionType :: (IsString a) => CTTransactionType -> a
 renderTransactionType = \case
-    Trade                    -> "Trade"
-    Deposit                  -> "Deposit"
-    Withdrawal               -> "Withdrawal"
-    Income                   -> "Income"
-    Mining                   -> "Mining"
-    GiftTipIn                -> "Gift/Tip(In)"
-    Spend                    -> "Spend"
-    Donation                 -> "Donation"
-    GiftOut                  -> "Gift(Out)"
-    Stolen                   -> "Stolen"
-    Lost                     -> "Lost"
-    Airdrop                  -> "Airdrop"
-    Staking                  -> "Staking"
-    Masternode               -> "Masternode"
-    Minting                  -> "Minting"
-    DividendsIncome          -> "Dividends Income"
-    LendingIncome            -> "Lending Income"
-    InterestIncome           -> "Interest Income"
-    RewardBonus              -> "Reward / Bonus"
-    MiningCommercial         -> "Mining (commercial)"
-    MarginProfit             -> "Margin Profit"
+    Trade -> "Trade"
+    Deposit -> "Deposit"
+    Withdrawal -> "Withdrawal"
+    Income -> "Income"
+    Mining -> "Mining"
+    GiftTipIn -> "Gift/Tip(In)"
+    Spend -> "Spend"
+    Donation -> "Donation"
+    GiftOut -> "Gift(Out)"
+    Stolen -> "Stolen"
+    Lost -> "Lost"
+    Airdrop -> "Airdrop"
+    Staking -> "Staking"
+    Masternode -> "Masternode"
+    Minting -> "Minting"
+    DividendsIncome -> "Dividends Income"
+    LendingIncome -> "Lending Income"
+    InterestIncome -> "Interest Income"
+    RewardBonus -> "Reward / Bonus"
+    MiningCommercial -> "Mining (commercial)"
+    MarginProfit -> "Margin Profit"
     DerivativesFuturesProfit -> "Derivatives / Futures Profit"
-    OtherIncome              -> "Other Income"
-    IncomeNonTaxable         -> "Income (non taxable)"
-    OtherIncomeNonTaxable    -> "Other Income (non taxable)"
-    MarginLoss               -> "Margin Loss"
-    MarginFee                -> "Margin Fee"
-    BorrowingFee             -> "Borrowing Fee"
-    SettlementFee            -> "Settlement Fee"
-    DerivativesFuturesLoss   -> "Derivatives / Futures Loss"
-    OtherFee                 -> "Other Fee"
-    OtherExpense             -> "Other Expense"
-    ExpenseNonTaxable        -> "Expense (non taxable)"
-    MarginTrade              -> "Margin Trade"
-    DerivativesFuturesTrade  -> "Derivatives / Futures Trade"
+    OtherIncome -> "Other Income"
+    IncomeNonTaxable -> "Income (non taxable)"
+    OtherIncomeNonTaxable -> "Other Income (non taxable)"
+    MarginLoss -> "Margin Loss"
+    MarginFee -> "Margin Fee"
+    BorrowingFee -> "Borrowing Fee"
+    SettlementFee -> "Settlement Fee"
+    DerivativesFuturesLoss -> "Derivatives / Futures Loss"
+    OtherFee -> "Other Fee"
+    OtherExpense -> "Other Expense"
+    ExpenseNonTaxable -> "Expense (non taxable)"
+    MarginTrade -> "Margin Trade"
+    DerivativesFuturesTrade -> "Derivatives / Futures Trade"
